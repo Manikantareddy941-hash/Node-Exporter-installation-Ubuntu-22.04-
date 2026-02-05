@@ -1,19 +1,17 @@
-# Prometheus – Common Commands
+# Node Exporter – Common Commands
 
 ## Service Control
-sudo systemctl start prometheus
-sudo systemctl stop prometheus
-sudo systemctl restart prometheus
-sudo systemctl status prometheus
+sudo systemctl start node_exporter
+sudo systemctl stop node_exporter
+sudo systemctl restart node_exporter
+sudo systemctl status node_exporter
 
 ## Logs
-journalctl -u prometheus -f
+journalctl -u node_exporter -f
 
-## Validate config
-promtool check config /etc/prometheus/prometheus.yml
-
-## Reload config without restart
-curl -X POST http://localhost:9090/-/reload
+## Test metrics
+curl localhost:9100/metrics
 
 ## Check port
-ss -tulpn | grep 9090
+ss -tulpn | grep 9100
+
