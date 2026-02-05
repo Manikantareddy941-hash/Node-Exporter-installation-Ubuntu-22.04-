@@ -1,0 +1,46 @@
+# Create user
+sudo useradd --system --no-create-home --shell /bin/false node_exporter
+
+# Download
+cd /tmp
+wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
+
+# Extract
+tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
+
+# Move binary
+sudo mv node_exporter-1.6.0.linux-amd64/node_exporter /usr/local/bin/
+
+# Cleanup
+rm -rf node_exporter*
+Create service
+bash
+Copy code
+sudo nano /etc/systemd/system/node_exporter.service
+Paste:
+
+ini
+Copy code
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=node_exporter
+ExecStart=/usr/local/bin/node_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+Start it
+bash
+Copy code
+sudo systemctl daemon-reexec
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+sudo systemctl status node_exporter
+Node Exporter runs on:
+
+arduino
+Copy code
+http://<EC2-IP>:9100/metrics
