@@ -1,0 +1,19 @@
+# Prometheus – Common Commands
+
+## Service Control
+sudo systemctl start prometheus
+sudo systemctl stop prometheus
+sudo systemctl restart prometheus
+sudo systemctl status prometheus
+
+## Logs
+journalctl -u prometheus -f
+
+## Validate config
+promtool check config /etc/prometheus/prometheus.yml
+
+## Reload config without restart
+curl -X POST http://localhost:9090/-/reload
+
+## Check port
+ss -tulpn | grep 9090
